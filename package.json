@@ -1,0 +1,37 @@
+{
+  "name": "hello-react",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "codegen": "apollo client:codegen --endpoint=https://rickandmortyapi.com/graphql --target=typescript --tagName=gql --suppressDeprecationWarning --no-addTypename --outputFlat src/__generated__",
+    "typecheck": "tsc -p tsconfig.node.json --noEmit",
+    "unit": "vitest run --globals --environment jsdom --passWithNoTests",
+    "test": "npm run typecheck && npm run unit"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.4",
+    "@emotion/react": "^11.11.1",
+    "@mantine/core": "^6.0.21",
+    "@mantine/form": "^6.0.21",
+    "@mantine/hooks": "^6.0.21",
+    "graphql": "^15.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.34",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
+    "apollo": "^2.34.0",
+    "jsdom": "^22.1.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.4"
+  },
+  "overrides": {
+    "graphql": "^15.8.0"
+  },
+  "private": true
+}
