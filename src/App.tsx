@@ -14,7 +14,7 @@ export function App() {
     <ApolloProvider client={client}>
       <MantineProvider withGlobalStyles withNormalizeCSS>
         <BrowserRouter>
-          <Routes>
+          <Routes location={'/login'}>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
