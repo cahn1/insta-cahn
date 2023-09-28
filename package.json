@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "codegen": "apollo client:codegen --endpoint=https://rickandmortyapi.com/graphql --target=typescript --tagName=gql --suppressDeprecationWarning --no-addTypename --outputFlat src/__generated__",
+    "codegen": "apollo client:codegen --endpoint=https://insta.web-api.dev/graphql --target=typescript --tagName=gql --suppressDeprecationWarning --no-addTypename --outputFlat src/__generated__",
     "typecheck": "tsc -p tsconfig.node.json --noEmit",
     "unit": "vitest run --globals --environment jsdom --passWithNoTests",
     "test": "npm run typecheck && npm run unit"

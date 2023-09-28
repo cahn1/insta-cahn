@@ -14,8 +14,9 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useSessionToken } from '../components/SessionTokenProvider';
 
 const LOGIN = gql`
   mutation Login($username: String!, $password: String!) {
@@ -32,6 +33,8 @@ const LOGIN = gql`
 export function LoginPage() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const { sessionToken, setSessionToken } = useSessionToken();
+  // const navigate = useNavigate();
 
   const [login, { loading }] = useMutation(LOGIN, {
     onError: (error) => {
@@ -43,10 +46,17 @@ export function LoginPage() {
         alert(`Invlaid login, Please try again.`);
       } else {
         // TODO: Write to the Browsers's sessionStorage (not localStorage)
-        alert(`Login successful! token: ${data.login.token}`);
+        // Store token value to context using useContext() method
+        // alert(`Login successful! token: ${data.login.token}`);
+        setSessionToken(data.login.token);
+        // navigate('/');
       }
     },
   });
+
+  if (sessionToken) {
+    return <Navigate to="/" />;
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
