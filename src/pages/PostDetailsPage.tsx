@@ -16,6 +16,7 @@ import {
 } from '@mantine/core';
 import { useMemo } from 'react';
 import { useDisclosure } from '@mantine/hooks';
+import { Post } from './Post';
 
 export function PostDetailsPage() {
   const { sessionToken, setSessionToken } = useSessionToken();
@@ -71,7 +72,7 @@ export function PostDetailsPage() {
   if (post) {
     return (
       <Stack>
-        <Box
+        {/* <Box
           key={post.id}
           style={{
             border: '1px solid #ccc',
@@ -102,22 +103,15 @@ export function PostDetailsPage() {
             />
           </AspectRatio>
           <Group>
-            <Button
-              variant="outline"
-              color="blue"
-              onClick={() => {
-                toggle();
-              }}
-            >
-              {post.isLikedByViewer ? 'Unlike' : 'Like'}
-            </Button>
+            {post.isLikedByViewer ? '❤️' : '🤍'}
             <Button variant="outline" color="red">
               Comment
             </Button>
           </Group>
           <Text>{post.likeCount} likes</Text>
           <Text c="dimmed">{post.caption}</Text>
-        </Box>
+        </Box> */}
+        <Post post={post} />
         <Divider />
         <Text>Comments ({post.comments.length})</Text>
         {post.comments.map((comment) => {

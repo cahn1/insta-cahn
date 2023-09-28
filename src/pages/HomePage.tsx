@@ -15,6 +15,7 @@ import { gql, useQuery } from '@apollo/client';
 import { useDisclosure } from '@mantine/hooks';
 import { GetPosts, GetPosts_posts } from '../__generated__/GetPosts';
 import { useMemo } from 'react';
+import { Post } from './Post';
 
 export function HomePage() {
   const { sessionToken, setSessionToken } = useSessionToken();
@@ -59,58 +60,64 @@ export function HomePage() {
       <Stack>
         {posts.map((post) => {
           return (
-            <Box
-              key={post.id}
-              style={{
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                padding: '0px',
-              }}
-            >
-              <Group>
-                <img
-                  src={post.author.profilePhoto}
-                  alt={post.author.name}
-                  width="50px"
-                  height="50px"
-                  style={{
-                    borderRadius: '50%',
-                    border: '1px solid #ccc',
-                    padding: '5px',
-                  }}
-                />
-                <p>{post.author.name}</p>
-              </Group>
+            // <Box
+            //   key={post.id}
+            //   style={{
+            //     border: '1px solid #ccc',
+            //     borderRadius: '5px',
+            //     padding: '0px',
+            //   }}
+            // >
+            //   <Group>
+            //     <img
+            //       src={post.author.profilePhoto}
+            //       alt={post.author.name}
+            //       width="50px"
+            //       height="50px"
+            //       style={{
+            //         borderRadius: '50%',
+            //         border: '1px solid #ccc',
+            //         padding: '5px',
+            //       }}
+            //     />
+            //     <p>{post.author.name}</p>
+            //   </Group>
+            //   <Link to={`/posts/${post.id}`}>
+            //     <AspectRatio ratio={1} maw={400} mx="auto">
+            //       <img
+            //         src={post.photo}
+            //         alt={post.caption}
+            //         width="100%"
+            //         height="auto"
+            //         // style={{ cursor: 'pointer' }}
+            //         // onClick={() => navigate(`/posts/${post.id}`)}
+            //       />
+            //     </AspectRatio>
+            //   </Link>
+            //   <Group>
+            //     {post.isLikedByViewer ? '❤️' : '🤍'}
+            //     {/* <Button
+            //       variant="outline"
+            //       color="blue"
+            //       onClick={() => {
+            //         toggle();
+            //       }}
+            //     >
+            //       {post.isLikedByViewer ? 'Unlike' : 'Like'}
+            //     </Button> */}
+            //     <Button variant="outline" color="red">
+            //       Comment
+            //     </Button>
+            //   </Group>
+            //   <Text>{post.likeCount} likes</Text>
+            //   <Text c="dimmed">{post.caption}</Text>
+            // </Box>
+            <>
               <Link to={`/posts/${post.id}`}>
-                <AspectRatio ratio={1} maw={400} mx="auto">
-                  <img
-                    src={post.photo}
-                    alt={post.caption}
-                    width="100%"
-                    height="auto"
-                    // style={{ cursor: 'pointer' }}
-                    // onClick={() => navigate(`/posts/${post.id}`)}
-                  />
-                </AspectRatio>
+                <Post post={post} />
               </Link>
-              <Group>
-                <Button
-                  variant="outline"
-                  color="blue"
-                  onClick={() => {
-                    toggle();
-                  }}
-                >
-                  {post.isLikedByViewer ? 'Unlike' : 'Like'}
-                </Button>
-                <Button variant="outline" color="red">
-                  Comment
-                </Button>
-              </Group>
-              <Text>{post.likeCount} likes</Text>
-              <Text c="dimmed">{post.caption}</Text>
               <Text>View {post.commentCount} comments</Text>
-            </Box>
+            </>
           );
         })}
       </Stack>

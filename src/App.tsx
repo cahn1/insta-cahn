@@ -1,5 +1,11 @@
 import { MantineProvider } from '@mantine/core';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Center } from '@mantine/core';
 import { HomePage } from './pages/HomePage';
@@ -7,8 +13,29 @@ import { LoginPage } from './pages/LoginPage';
 import { SessionTokenProvider } from './components/SessionTokenProvider';
 import { PostDetailsPage } from './pages/PostDetailsPage';
 
-const client = new ApolloClient({
+// const client = new ApolloClient({
+//   uri: 'https://insta.web-api.dev/graphql',
+//   cache: new InMemoryCache(),
+// });
+
+const httpLink = createHttpLink({
   uri: 'https://insta.web-api.dev/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('session-token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
